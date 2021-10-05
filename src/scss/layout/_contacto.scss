@@ -14,16 +14,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    
     h2 {
         font-size: 4rem;
         font-weight: $black;
         color: $blanco;
+        padding: 2rem;
     }
 
     p {
         font-size: 1.8rem;
         color: $blanco;
+        text-align: center;
     }
 
 }
