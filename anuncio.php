@@ -43,9 +43,6 @@
         </div>
     </main>
 
-    <?php incluirTemplate('footer'); ?>
+<?php incluirTemplate('footer'); ?>
 
 
-    <script src="build/js/bundle.min.js"></script>
-</body>
-</html>
