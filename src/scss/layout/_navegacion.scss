@@ -17,11 +17,15 @@
 }
 
 .navbar {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility .3s ease-in-out, opacity 0.3s linear;
 
     @include tablet {
         display: flex;
         align-items: center;
+        opacity: 1;
+        visibility: visible;
     }
 
     a {
@@ -56,5 +60,6 @@
 
 
 .mostrar {
-    display: block;
+    opacity: 1;
+    visibility: visible;
 }
