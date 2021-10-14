@@ -1,6 +1,10 @@
 <?php 
-    $inicio = true;
-    include 'includes/templates/header.php'; 
+    require 'includes/funciones.php';
+    
+
+    incluirTemplate('header', $inicio = true);
+    
+
 ?>
     
     
@@ -200,7 +204,7 @@
 
     </div> <!-- seccion-inferior -->
     
-    <?php include 'includes/templates/footer.php'; ?>
+    <?php incluirTemplate('footer'); ?>
 
     <script src="build/js/bundle.min.js"></script>
 </body>
