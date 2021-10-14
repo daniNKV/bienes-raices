@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     eventListeners();
+
+    darkMode();
 })
 
 
@@ -20,5 +22,14 @@ function navegacionResponsive() {
     }
 }
 
+function darkMode() {
+    const botonDarkMode = document.querySelector('.dark-mode-boton')
+
+    botonDarkMode.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode')
+    })
+}
 
 //# sourceMappingURL=bundle.min.js.map
+
+
