@@ -1,41 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Propiedades con AltaVista</title>
-    <link rel="stylesheet" href="build/css/app.css">
-</head>
-<body>
+<?php include 'includes/templates/header.php'; ?>
     
-    <header class="header">
-         <div class="contenedor contenido-header">
-            <div class="barra">
-
-                <a href="/">
-                    <img src="build/img/logo.svg" alt="logotipo de la compañia de Bienes Raices">
-                </a>
-                <div class="mobile-menu">
-                    <img src="build/img/barras.svg" alt="menu">
-                </div>
-
-                <div class="derecha">
-                    <img src="build/img/dark-mode.svg" alt="dark mode" class="dark-mode-boton">
-                    
-                <nav class="navbar">
-                    <a href="nosotros.html">Nosotros</a>
-                    <a href="anuncios.html">Anuncios</a>
-                    <a href="blog.html">Blog</a>
-                    <a href="contacto.html">Contacto</a>
-                </nav>
-                
-                </div>
-                
-            </div>  <!--   Barra   -->
-                        
-        </div>  <!-- Container  -->
-    </header>
     
     <main class="contenedor seccion contenido-centrado">
         <h1>Nuetro Blog</h1>
@@ -50,7 +14,7 @@
                 </div>
 
                 <div class="texto-entrada">
-                    <a href="entrada.html">
+                    <a href="entrada.php">
                         <h4>Terraza en el techo de casa</h4>
                         <p>Escrito el: <span>20/10/2020</span> por: <span>Admin</span></p>
                         <p>Consejos para construir la terraza que siempre soñaste, con los mejores materiales y al menor precio.</p>
@@ -68,7 +32,7 @@
                 </div>
 
                 <div class="texto-entrada">
-                    <a href="entrada.html">
+                    <a href="entrada.php">
                         <h4>Consejos para la Alberca</h4>
                         <p>Escrito el: <span>20/10/2020</span> por: <span>Admin</span></p>
                         <p>Aprovecha al máximo el espacio de tu hogar con esta práctica guía, aprede a combinar muebles y colores para darle vida a tu espacio.</p>
@@ -85,7 +49,7 @@
                 </div>
 
                 <div class="texto-entrada">
-                    <a href="entrada.html">
+                    <a href="entrada.php">
                         <h4>Maximiza el espacio en tu casa</h4>
                         <p>Escrito el: <span>20/10/2020</span> por: <span>Admin</span></p>
                         <p>Aprovecha al máximo el espacio de tu hogar con esta práctica guía, aprede a combinar muebles y colores para darle vida a tu espacio.</p>
@@ -102,7 +66,7 @@
                 </div>
 
                 <div class="texto-entrada">
-                    <a href="entrada.html">
+                    <a href="entrada.php">
                         <h4>Descansa al máximo gracias al color</h4>
                         <p>Escrito el: <span>20/10/2020</span> por: <span>Admin</span></p>
                         <p>Aprovecha al máximo el espacio de tu hogar con esta práctica guía, aprede a combinar muebles y colores para darle vida a tu espacio.</p>
@@ -116,10 +80,10 @@
     <footer class="footer seccion">
         <div class="contenedor contenido-footer">
             <nav class="navbar">
-                <a href="nosotros.html">Nosotros</a>
-                <a href="anuncios.html">Anuncios</a>
-                <a href="blog.html">Blog</a>
-                <a href="contacto.html">Contacto</a>
+                <a href="nosotros.php">Nosotros</a>
+                <a href="anuncios.php">Anuncios</a>
+                <a href="blog.php">Blog</a>
+                <a href="contacto.php">Contacto</a>
             </nav>
         </div>
 

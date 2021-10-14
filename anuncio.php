@@ -1,42 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Propiedades con AltaVista</title>
-    <link rel="stylesheet" href="build/css/app.css">
-</head>
-<body>
+<?php include 'includes/templates/header.php'; ?>
     
-    <header class="header">
-         <div class="contenedor contenido-header">
-            <div class="barra">
-
-                <a href="/">
-                    <img src="build/img/logo.svg" alt="logotipo de la compañia de Bienes Raices">
-                </a>
-                <div class="mobile-menu">
-                    <img src="build/img/barras.svg" alt="menu">
-                </div>
-
-                <div class="derecha">
-                    <img src="build/img/dark-mode.svg" alt="dark mode" class="dark-mode-boton">
-                    
-                <nav class="navbar">
-                    <a href="nosotros.html">Nosotros</a>
-                    <a href="anuncios.html">Anuncios</a>
-                    <a href="blog.html">Blog</a>
-                    <a href="contacto.html">Contacto</a>
-                </nav>
-                
-                </div>
-                
-            </div>  <!--   Barra   -->
-            
-            
-        </div>  <!-- Container  -->
-    </header>
     
     <main class="contenedor seccion contenido-centrado">
         <h1>Casa en venta frente al Bosque</h1>
@@ -79,10 +42,10 @@
     <footer class="footer seccion">
         <div class="contenedor contenido-footer">
             <nav class="navbar">
-                <a href="nosotros.html">Nosotros</a>
-                <a href="anuncios.html">Anuncios</a>
-                <a href="blog.html">Blog</a>
-                <a href="contacto.html">Contacto</a>
+                <a href="nosotros.php">Nosotros</a>
+                <a href="anuncios.php">Anuncios</a>
+                <a href="blog.php">Blog</a>
+                <a href="contacto.php">Contacto</a>
             </nav>
         </div>
 
