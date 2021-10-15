@@ -5,8 +5,20 @@
     require '../../includes/config/database.php';
     $db = conectarDB();
 
+    $consulta = "SELECT * FROM vendedores";
+    
+
     // Array con errores
     $errores = [];
+    
+    $titulo = '';
+    $precio = '';
+    $descripcion = '';
+    $habitaciones = '';
+    $wc = '';
+    $estacionamiento = '';
+    $vendedor_ID = '';
+
 
     // Ejecutar después de enviar el formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -95,16 +107,34 @@
                 <legend>Información General</legend>
 
                 <label for="titulo">Titulo:</label>
-                <input type="text" id="titulo" name="titulo" placeholder="Titulo de la Propiedad">
+                <input 
+                    type="text" 
+                    id="titulo" 
+                    name="titulo" 
+                    placeholder="Titulo de la Propiedad" 
+                    value="<?php echo $titulo; ?>">
                 
                 <label for="precio">Precio:</label>
-                <input type="number" id="precio" name="precio" placeholder="Precio de la Propiedad">
+                <input 
+                    type="number" 
+                    id="precio" 
+                    name="precio"
+                    placeholder="Precio de la Propiedad" 
+                    value="<?php echo $precio; ?>">
                 
                 <label for="imagen">Imagenes:</label>
-                <input type="file" id="imagen" name="imagen" accept="image/jpeg, image/png">
+                <input 
+                    type="file" 
+                    id="imagen" 
+                    name="imagen" 
+                    accept="image/jpeg, image/png">
 
                 <label for="descripcion" >Descripción:</label>
-                <textarea id="descripcion" name="descripcion"></textarea>
+                <textarea 
+                    id="descripcion" 
+                    name="descripcion" 
+                    value="<?php echo $descripcion; ?>">
+                </textarea>
 
             </fieldset>
 
@@ -112,13 +142,34 @@
                 <legend>Información de la Propiedad</legend>
 
                 <label for="habitaciones">Habitaciones:</label>
-                <input type="number" id="habitaciones" name="habitaciones" placeholder="Ej: 3" min="1" max="9">
+                <input 
+                    type="number" 
+                    id="habitaciones" 
+                    name="habitaciones" 
+                    placeholder="Ej: 3" 
+                    min="1" 
+                    max="9" 
+                    value="<?php echo $habitaciones; ?>">
                
                 <label for="wc">Baños:</label>
-                <input type="number" id="wc" name="wc" placeholder="Ej: 3" min="1" max="9">
+                <input 
+                    type="number" 
+                    id="wc" 
+                    name="wc" 
+                    placeholder="Ej: 3" 
+                    min="1" 
+                    max="9" 
+                    value="<?php echo $wc; ?>">
                 
                 <label for="estacionamiento">Estacionamiento:</label>
-                <input type="number" id="estacionamiento" name="estacionamiento" placeholder="Ej: 3" min="1" max="99">
+                <input 
+                    type="number" 
+                    id="estacionamiento" 
+                    name="estacionamiento" 
+                    placeholder="Ej: 3" 
+                    min="1" 
+                    max="99" 
+                    value="<?php echo $estacionamiento; ?>">
             </fieldset>
 
             <fieldset>
