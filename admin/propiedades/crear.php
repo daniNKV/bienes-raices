@@ -6,9 +6,48 @@
     $db = conectarDB();
     
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
+       
         $titulo = $_POST['titulo'];
         $precio = $_POST['precio'];
+        $descripcion = $_POST['precio'];
+        $habitaciones = $_POST['habitaciones'];
+        $wc = $_POST['wc'];
+        $estacionamiento = $_POST['estacionamiento'];
+        $vendedor_ID = $_POST['vendedor_ID'];
+
+        // INSERTAR EN BD
+
+        $query = "INSERT INTO propiedades ( 
+            titulo, 
+            precio, 
+            descripcion, 
+            habitaciones, 
+            wc, 
+            estacionamiento, 
+            vendedor_ID ) 
+            
+            VALUES (
+                '$titulo', 
+                '$precio', 
+                '$descripcion', 
+                '$habitaciones', 
+                '$wc', 
+                '$estacionamiento', 
+                '$vendedor_ID'
+        )";
+
+        $resultado = mysqli_query($db, $query);
+
+        if($resultado) {
+            echo 'Insertado correctamente';
+        }else {
+            echo 'fallo';
+        }
+        
+
+
     }
+
     require '../../includes/funciones.php';
     
     incluirTemplate('header');
@@ -42,19 +81,19 @@
                 <legend>Información de la Propiedad</legend>
 
                 <label for="habitaciones">Habitaciones:</label>
-                <input type="number" id="habitaciones" placeholder="Ej: 3" min="1" max="9">
+                <input type="number" id="habitaciones" name="habitaciones" placeholder="Ej: 3" min="1" max="9">
                
-                <label for="wc">Habitaciones:</label>
-                <input type="number" id="wc" placeholder="Ej: 3" min="1" max="9">
+                <label for="wc">Baños:</label>
+                <input type="number" id="wc" name="wc" placeholder="Ej: 3" min="1" max="9">
                 
-                <label for="estacionamiento">Habitaciones:</label>
-                <input type="number" id="estacionamiento" placeholder="Ej: 3" min="1" max="99">
+                <label for="estacionamiento">Estacionamiento:</label>
+                <input type="number" id="estacionamiento" name="estacionamiento" placeholder="Ej: 3" min="1" max="99">
             </fieldset>
 
             <fieldset>
                 <legend>Vendedor/es</legend>
 
-                <select>
+                <select name="vendedor_ID">
                     <option value="1">Daniel</option>
                     <option value="2">Jorge</option>
                     <option value="3">Carla</option>
