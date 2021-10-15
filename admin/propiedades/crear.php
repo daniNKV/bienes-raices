@@ -6,7 +6,8 @@
     $db = conectarDB();
 
     $consulta = "SELECT * FROM vendedores";
-    
+    $resultado = mysqli_query($db, $consulta);
+
 
     // Array con errores
     $errores = [];
@@ -176,9 +177,11 @@
                 <legend>Vendedor/es</legend>
 
                 <select name="vendedor_ID">
-                    <option value="1">Daniel</option>
-                    <option value="2">Jorge</option>
-                    <option value="3">Carla</option>
+                    <?php while($vendedor = mysqli_fetch_assoc($resultado)): ?>
+                        <option <?php echo $vendedor_ID === $vendedor['id'] ? 'selected' : ''; ?> value="<?php echo $vendedor['id']; ?>">
+                                <?php echo $vendedor['nombre']." ".$vendedor['apellido']; ?>
+                        </option>
+                    <?php endwhile; ?> 
                 </select>
             </fieldset>
 
