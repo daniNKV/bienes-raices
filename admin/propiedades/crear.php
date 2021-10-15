@@ -1,4 +1,14 @@
 <?php 
+
+//BASE DE DATOS
+
+    require '../../includes/config/database.php';
+    $db = conectarDB();
+    
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $titulo = $_POST['titulo'];
+        $precio = $_POST['precio'];
+    }
     require '../../includes/funciones.php';
     
     incluirTemplate('header');
@@ -10,21 +20,21 @@
 
         <a href="/admin" class="boton-verde">Volver</a>
 
-        <form class="form">
+        <form class="form" method="POST" action="/admin/propiedades/crear.php">
             <fieldset>
                 <legend>Información General</legend>
 
                 <label for="titulo">Titulo:</label>
-                <input type="text" id="titulo" placeholder="Titulo de la Propiedad">
+                <input type="text" id="titulo" name="titulo" placeholder="Titulo de la Propiedad">
                 
                 <label for="precio">Precio:</label>
-                <input type="number" id="precio" placeholder="Precio de la Propiedad">
+                <input type="number" id="precio" name="precio" placeholder="Precio de la Propiedad">
                 
                 <label for="imagen">Imagenes:</label>
-                <input type="file" id="imagen" accept="image/jpeg, image/png">
+                <input type="file" id="imagen" name="imagen" accept="image/jpeg, image/png">
 
-                <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion"></textarea>
+                <label for="descripcion" >Descripción:</label>
+                <textarea id="descripcion" name="descripcion"></textarea>
 
             </fieldset>
 
