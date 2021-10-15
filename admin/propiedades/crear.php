@@ -6,7 +6,7 @@
     $db = conectarDB();
 
     $consulta = "SELECT * FROM vendedores";
-    $resultado = mysqli_query($db, $consulta);
+    $resultadoVendedor = mysqli_query($db, $consulta);
 
 
     // Array con errores
@@ -23,14 +23,19 @@
 
     // Ejecutar después de enviar el formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-       
+        echo '<pre>';
+        var_dump($_POST);
+        echo '</pre>';
+
         $titulo = $_POST['titulo'];
         $precio = $_POST['precio'];
-        $descripcion = $_POST['precio'];
+        $descripcion = $_POST['descripcion'];
         $habitaciones = $_POST['habitaciones'];
         $wc = $_POST['wc'];
         $estacionamiento = $_POST['estacionamiento'];
         $vendedor_ID = $_POST['vendedor_ID'];
+        $creado = date('Y/m/d');
+       // $creado = date('Y/M/D');
 
         // Validacion de formulario
         if(!$titulo) {
@@ -62,6 +67,7 @@
                 habitaciones, 
                 wc, 
                 estacionamiento, 
+                creado,
                 vendedor_ID ) 
                 
                 VALUES (
@@ -71,15 +77,17 @@
                     '$habitaciones', 
                     '$wc', 
                     '$estacionamiento', 
+                    '$creado',
                     '$vendedor_ID'
             )";
     
             $resultado = mysqli_query($db, $query);
-    
             if($resultado) {
+                //Redireccionar
+                header('Location: /admin');
                 echo 'Insertado correctamente';
             }else {
-                echo 'fallo';
+                echo 'fallo';                    
             }
         }
         
@@ -177,7 +185,7 @@
                 <legend>Vendedor/es</legend>
 
                 <select name="vendedor_ID">
-                    <?php while($vendedor = mysqli_fetch_assoc($resultado)): ?>
+                    <?php while($vendedor = mysqli_fetch_assoc($resultadoVendedor)): ?>
                         <option <?php echo $vendedor_ID === $vendedor['id'] ? 'selected' : ''; ?> value="<?php echo $vendedor['id']; ?>">
                                 <?php echo $vendedor['nombre']." ".$vendedor['apellido']; ?>
                         </option>
