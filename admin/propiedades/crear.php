@@ -23,17 +23,22 @@
 
     // Ejecutar después de enviar el formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        echo '<pre>';
-        var_dump($_POST);
-        echo '</pre>';
+        
+      
+      
+         echo '<pre>';
+        var_dump($_SERVER);
+        echo '</pre>'; 
 
-        $titulo = $_POST['titulo'];
-        $precio = $_POST['precio'];
-        $descripcion = $_POST['descripcion'];
-        $habitaciones = $_POST['habitaciones'];
-        $wc = $_POST['wc'];
-        $estacionamiento = $_POST['estacionamiento'];
-        $vendedor_ID = $_POST['vendedor_ID'];
+        exit;
+
+        $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
+        $precio = mysqli_real_escape_string($db, $_POST['precio']);
+        $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
+        $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']);
+        $wc = mysqli_real_escape_string($db, $_POST['wc']);
+        $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
+        $vendedor_ID = mysqli_real_escape_string($db, $_POST['vendedor_ID']);
         $creado = date('Y/m/d');
        // $creado = date('Y/M/D');
 
@@ -82,6 +87,7 @@
             )";
     
             $resultado = mysqli_query($db, $query);
+            
             if($resultado) {
                 //Redireccionar
                 header('Location: /admin');
@@ -111,7 +117,7 @@
             </div>
         <?php endforeach; ?>
 
-        <form class="form" method="POST" action="/admin/propiedades/crear.php">
+        <form class="form" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
             <fieldset>
                 <legend>Información General</legend>
 
