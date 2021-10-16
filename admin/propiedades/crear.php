@@ -23,14 +23,11 @@
 
     // Ejecutar después de enviar el formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
-      
-      
-         echo '<pre>';
-        var_dump($_SERVER);
+        /*
+        echo '<pre>';
+        var_dump($_FILES);
         echo '</pre>'; 
-
-        exit;
+        */
 
         $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
         $precio = mysqli_real_escape_string($db, $_POST['precio']);
@@ -40,7 +37,9 @@
         $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
         $vendedor_ID = mysqli_real_escape_string($db, $_POST['vendedor_ID']);
         $creado = date('Y/m/d');
-       // $creado = date('Y/M/D');
+
+        // Asignar files en una variable
+        $imagen = $_FILES['imagen'];
 
         // Validacion de formulario
         if(!$titulo) {
@@ -60,6 +59,15 @@
         }
         if(!$estacionamiento) {
             $errores[] = "Debe tener un numero de lugares para estacionar";
+        }
+
+        // Validacion imagen
+        $escala = 1000 * 100;
+        if(!$imagen['name']) {
+            $errores[] = "Debe tener una imagen";
+        }
+        if($imagen['size'] > $escala) {
+            $errores[] = "La imagen es muy pesada";
         }
 
         // Revisar que no existan errores
