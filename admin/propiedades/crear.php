@@ -27,8 +27,9 @@
         echo '<pre>';
         var_dump($_FILES);
         echo '</pre>'; 
+        
+        exit;
         */
-
         $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
         $precio = mysqli_real_escape_string($db, $_POST['precio']);
         $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
@@ -62,7 +63,7 @@
         }
 
         // Validacion imagen
-        $escala = 1000 * 100;
+        $escala = 10000 * 1000;
         if(!$imagen['name']) {
             $errores[] = "Debe tener una imagen";
         }
@@ -72,6 +73,19 @@
 
         // Revisar que no existan errores
         if(empty($errores)) {
+            // SUBIR ARCHIVOS
+            
+            // Crear carpeta
+            $carpetaImagenes = '../../imagenes/';
+            if(!is_dir($carpetaImagenes)) {
+                mkdir($carpetaImagenes);
+            }
+            // Generar nombre único
+            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg" ;
+            // Subir la imagen
+            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen );
+
+            
             // INSERTAR EN BD
             $query = "INSERT INTO propiedades ( 
                 titulo, 
@@ -81,7 +95,8 @@
                 wc, 
                 estacionamiento, 
                 creado,
-                vendedor_ID ) 
+                vendedor_ID 
+                ) 
                 
                 VALUES (
                     '$titulo', 
@@ -92,16 +107,15 @@
                     '$estacionamiento', 
                     '$creado',
                     '$vendedor_ID'
-            )";
+                )";
     
             $resultado = mysqli_query($db, $query);
             
             if($resultado) {
                 //Redireccionar
-                header('Location: /admin');
-                echo 'Insertado correctamente';
+                header('Location: /admin?resultado=200');
             }else {
-                echo 'fallo';                    
+                echo 'fallo';
             }
         }
         
