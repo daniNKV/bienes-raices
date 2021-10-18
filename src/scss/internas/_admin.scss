@@ -27,8 +27,21 @@ table.propiedades {
             padding: 2rem;
         }
     }
+    tbody {
+        td {
+            text-align: center;
+            font-size: 1.8rem;
+            border-left: 1px solid rgba(192, 192, 192, 0.4);
+            border-bottom: 1px solid rgba(192, 192, 192, 0.4);
+            
+        }
+    }
     .imagen-tabla {
         width: 10rem;
     }
+}
+
+.imagen-small {
+    width: 20rem;
 }
 

@@ -47,7 +47,7 @@
                     
                     <td>
                         <a href="" class="boton-rojo-block">Eliminar</a>
-                        <a href="propiedades/actualizar.php" class="boton-amarillo-block">Actualizar</a>
+                        <a href="admin/propiedades/actualizar.php?id=<?php echo $propiedad['id']; ?>" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>
                                     
