@@ -19,13 +19,12 @@
     $consultaVendedores = "SELECT * FROM vendedores";
     $resultadoVendedores = mysqli_query($db, $consultaVendedores);
 
-
     // Array con errores
     $errores = [];
     
     $titulo = $propiedad['titulo'] ?? '';
     $precio = $propiedad['precio'] ?? '';
-    $descripcion = $propiedad['descripcion'] ?? '';
+    $descripcion = $propiedad['descripcion'] ?? '' ;
     $habitaciones = $propiedad['habitaciones'] ?? '';
     $wc = $propiedad['wc'] ?? '';
     $estacionamiento = $propiedad['estacionamiento'] ?? '';
@@ -37,7 +36,7 @@
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         /*
         echo '<pre>';
-        var_dump($_FILES);
+        var_dump($_POST);
         echo '</pre>'; 
         
         exit;
@@ -76,9 +75,6 @@
 
         // Validacion imagen
         $escala = 10000 * 1000;
-        if(!$imagen['name']) {
-            $errores[] = "Debe tener una imagen";
-        }
         if($imagen['size'] > $escala) {
             $errores[] = "La imagen es muy pesada";
         }
@@ -96,19 +92,19 @@
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg" ;
             // Subir la imagen
             move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen );
-
             
             // INSERTAR EN BD
-            $query = "INSERT INTO propiedades ( 
-                titulo, 
-                precio, 
-                imagen,
-                descripcion, 
-                habitaciones, 
-                wc, 
-                estacionamiento, 
-                creado,
-                vendedor_ID 
+            $query = "UPDATE propiedades SET
+                titulo = '${titulo}', 
+                precio = '${precio}', 
+                imagen = '${imagen}',
+                descripcion = '${descripcion}', 
+                habitaciones = ${habitaciones}, 
+                wc = ${wc}, 
+                estacionamiento = ${estacionamiento}, 
+                creado = ${creado},
+                vendedor_ID = ${vendedor_ID} 
+                WHERE id = ${id}
                 ) 
                 
                 VALUES (
@@ -127,7 +123,7 @@
             
             if($resultado) {
                 //Redireccionar
-                header('Location: /admin?resultado=200');
+                header('Location: /admin?resultado=210');
             }else {
                 echo 'fallo';
             }
@@ -153,7 +149,7 @@
             </div>
         <?php endforeach; ?>
 
-        <form class="form" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
+        <form class="form" method="POST" enctype="multipart/form-data">
             <fieldset>
                 <legend>Información General</legend>
 
@@ -182,10 +178,8 @@
                 <img src="/imagenes/<?php echo $imagenPropiedad; ?>" class="imagen-small" alt="">
 
                 <label for="descripcion" >Descripción:</label>
-                <textarea 
-                    id="descripcion" 
-                    name="descripcion" 
-                    value="<?php echo $descripcion; ?>">
+                <textarea id="descripcion" name="descripcion">
+                    <?php echo "$descripcion"; ?>
                 </textarea>
 
             </fieldset>

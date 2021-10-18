@@ -22,6 +22,10 @@
         <p class="alerta exito">Anuncio creado correctamente</p>
     <?php endif ?>
 
+    <?php if(intval($resultado) == 210): ?>
+        <p class="alerta exito">Anuncio actualizado correctamente</p>
+    <?php endif ?>
+
         <a href="/admin/propiedades/crear.php" class="boton-verde">Nueva Propiedad</a>
 
         <table class="propiedades">
