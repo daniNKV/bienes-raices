@@ -1,48 +1,66 @@
 <?php 
+    // Importar conexión
+    require 'includes/config/database.php';
+    $db = conectarDB();
+
+    $id = $_GET['id'];
+    $id = filter_var($id, FILTER_VALIDATE_INT );
+
+    if(!$id) {
+        header('Location: /');
+    }
+   
+    // Consulta
+    $query = "SELECT * FROM propiedades WHERE id = ${id}";
+
+    // Resultado
+    $resultado = mysqli_query($db, $query);
+    $propiedad = mysqli_fetch_assoc($resultado);
+
+
     require 'includes/funciones.php';
-    
     incluirTemplate('header');
     
-
 ?>
     
-    <main class="contenedor seccion contenido-centrado">
-        <h1>Casa en venta frente al Bosque</h1>
+<main class="contenedor seccion contenido-centrado">
 
-        <picture>
-            <source srcset="build/img/destacada.webp" type="image/webp">
-            <source srcset="build/img/destacada.jpg" type="image/jpeg">
-            <img src="build/img/destacada.jpg" alt="Casa frente al bosque" loading="lazy">
-        </picture>
+    <h1><?php echo $propiedad['titulo']?></h1>
 
-        <div class="resumen-propiedad">
-            <p class="precio">Precio: $3.000.000</p>
+    <picture>
+        <img src="imagenes/<?php echo $propiedad['imagen']?>" alt="Casa frente al bosque" loading="lazy">
+    </picture>
 
-            <ul class="iconos-caracteristicas">
-                <li>
-                    <img class="icono" loading="lazy" src="build/img/icono_wc.svg" alt="icono wc">
-                    <p>3</p>
-                </li>
-                <li>
-                    <img class="icono" loading="lazy" src="build/img/icono_estacionamiento.svg" alt="icono icono estacionamiento">
-                    <p>3</p>
-                </li>
-                <li>
-                    <img class="icono" loading="lazy" src="build/img/icono_dormitorio.svg" alt="icono habitaciones">
-                    <p>4</p>
-                </li>
-            </ul>
+    <div class="resumen-propiedad">
+        <p class="precio">Precio: $<?php echo $propiedad['precio']?></p>
 
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius aut deleniti, blanditiis vel ullam, labore distinctio voluptate quo officiis molestias dicta, veniam consequuntur iste quaerat expedita. Ipsa repellendus ipsum velit adipisci blanditiis. Dignissimos, vitae, fugiat possimus repudiandae velit distinctio at corporis quo sapiente, iste sunt dolore saepe harum. Neque vero aliquam, incidunt repellendus laborum provident id vel labore similique! Cupiditate esse mollitia possimus ipsam molestiae quibusdam unde quae iste perspiciatis velit voluptatum facere, consequuntur repellat id quo at, enim minima illo et molestias amet? Est obcaecati et non dolorem suscipit. Ducimus dolor inventore doloribus cupiditate harum exercitationem accusamus id ut?
-            </p>
+        <ul class="iconos-caracteristicas">
+            <li>
+                <img class="icono" loading="lazy" src="build/img/icono_wc.svg" alt="icono wc">
+                <p><?php echo $propiedad['wc']?></p>
+            </li>
+            <li>
+                <img class="icono" loading="lazy" src="build/img/icono_estacionamiento.svg" alt="icono icono estacionamiento">
+                <p><?php echo $propiedad['estacionamiento']?></p>
+            </li>
+            <li>
+                <img class="icono" loading="lazy" src="build/img/icono_dormitorio.svg" alt="icono habitaciones">
+                <p><?php echo $propiedad['habitaciones']?></p>
+            </li>
+        </ul>
 
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, soluta? Veniam laboriosam vero neque eum porro commodi, sint magni necessitatibus eius ipsam incidunt, fuga soluta voluptatem temporibus assumenda dolore, totam iusto consequatur aliquam dolores saepe. Doloribus assumenda, deleniti tempora, consequatur placeat, animi commodi non est iste velit impedit labore ex!
-            </p>
-        </div>
-    </main>
+        <p>
+            <?php echo $propiedad['descripcion']?>
+        </p>
 
-<?php incluirTemplate('footer'); ?>
+        
+    </div>    
+
+</main>
+
+<?php 
+    incluirTemplate('footer'); 
+    mysqli_close($db);
+?>
 
 
