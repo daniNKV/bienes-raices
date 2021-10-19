@@ -13,8 +13,8 @@
     
     //Consultas
     $consultaPropiedades = "SELECT * FROM propiedades WHERE id = ${id}";
-    $resultadoPropiedad = mysqli_query($db, $consultaPropiedades);
-    $propiedad = mysqli_fetch_assoc($resultadoPropiedad);
+    $resultadoPropiedades = mysqli_query($db, $consultaPropiedades);
+    $propiedad = mysqli_fetch_assoc($resultadoPropiedades);
 
     $consultaVendedores = "SELECT * FROM vendedores";
     $resultadoVendedores = mysqli_query($db, $consultaVendedores);
@@ -30,6 +30,7 @@
     $estacionamiento = $propiedad['estacionamiento'] ?? '';
     $vendedor_ID = $propiedad['vendedor_ID'] ?? '';
     $imagenPropiedad = $propiedad['imagen'];
+    $creado = $propiedad['creado'];
 
 
     // Ejecutar después de enviar el formulario
@@ -48,7 +49,6 @@
         $wc = mysqli_real_escape_string($db, $_POST['wc']);
         $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
         $vendedor_ID = mysqli_real_escape_string($db, $_POST['vendedor_ID']);
-        $creado = date('Y/m/d');
 
         // Asignar files en una variable
         $imagen = $_FILES['imagen'];
@@ -81,51 +81,52 @@
 
         // Revisar que no existan errores
         if(empty($errores)) {
-            // SUBIR ARCHIVOS
-            
+        
             // Crear carpeta
             $carpetaImagenes = '../../imagenes/';
             if(!is_dir($carpetaImagenes)) {
                 mkdir($carpetaImagenes);
             }
-            // Generar nombre único
-            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg" ;
-            // Subir la imagen
-            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen );
-            
+
+            $nombreImagen = '';
+            // SUBIR ARCHIVOS
+            if ($imagen['name']) {
+                // Borrar imagen anterior
+                unlink($carpetaImagenes . $propiedad['imagen']);
+
+                // Generar nombre único
+                $nombreImagen = md5(uniqid(rand(), true)) . ".jpg" ;
+
+                // Subir la imagen
+                move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen );
+        
+            }else {
+                $nombreImagen = $propiedad['imagen'];
+            }
+
             // INSERTAR EN BD
             $query = "UPDATE propiedades SET
                 titulo = '${titulo}', 
                 precio = '${precio}', 
-                imagen = '${imagen}',
+                imagen = '${nombreImagen}',
                 descripcion = '${descripcion}', 
                 habitaciones = ${habitaciones}, 
                 wc = ${wc}, 
                 estacionamiento = ${estacionamiento}, 
-                creado = ${creado},
                 vendedor_ID = ${vendedor_ID} 
                 WHERE id = ${id}
-                ) 
-                
-                VALUES (
-                    '$titulo', 
-                    '$precio',
-                    '$nombreImagen', 
-                    '$descripcion', 
-                    '$habitaciones', 
-                    '$wc', 
-                    '$estacionamiento', 
-                    '$creado',
-                    '$vendedor_ID'
-                )";
-    
-            $resultado = mysqli_query($db, $query);
+                ";
+
+            $resultado = mysqli_query($db, $query)or die(mysqli_error($db));
             
             if($resultado) {
                 //Redireccionar
                 header('Location: /admin?resultado=210');
             }else {
-                echo 'fallo';
+                echo 'fallo';            
+                
+
+
             }
         }
         
