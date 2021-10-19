@@ -28,7 +28,7 @@
     <h1><?php echo $propiedad['titulo']?></h1>
 
     <picture>
-        <img src="imagenes/<?php echo $propiedad['imagen']?>" alt="Casa frente al bosque" loading="lazy">
+        <img src="imagenes/<?php echo $propiedad['imagen']?>" alt="Propiedad" loading="lazy">
     </picture>
 
     <div class="resumen-propiedad">
@@ -60,7 +60,7 @@
 
 <?php 
     incluirTemplate('footer'); 
-    mysqli_close($db);
+
 ?>
 
 
