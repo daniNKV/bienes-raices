@@ -21,8 +21,8 @@
                 </picture>
 
                 <div class="contenido-anuncio">
-                    <h3>Casa de Lujo en el Lago</h3>
-                    <p>Casa frente al lago con una excelente vista, acabados de lujo a un excelente precio</p>
+                    <h3><?php echo $propiedad['titulo']; ?></h3>
+                    <p><?php echo $propiedad['descripcion']; ?></p>
                     <p class="precio"><?php echo $propiedad['precio']; ?></p>
 
                     <ul class="iconos-caracteristicas">
@@ -46,9 +46,10 @@
                     
                 </div><!--.Contenido-Anuncio-->
             </div><!--.Anuncio-->
+            <?php endwhile ?>
+
         </div> <!--.Contenedor Anuncios-->
 
-        <?php endwhile ?>
 
 <?php 
         //Cerrar Conexión
