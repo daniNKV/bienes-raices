@@ -1,4 +1,9 @@
 <?php 
+    require '../../includes/funciones.php';
+    $auth = estadoAutenticado();
+    if(!$auth) {
+        header('Location: /login.php');
+    }
 
 //BASE DE DATOS
 
@@ -124,7 +129,6 @@
 
   }
 
-    require '../../includes/funciones.php';
     
     incluirTemplate('header');
     

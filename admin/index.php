@@ -1,11 +1,17 @@
 <?php 
+    // Autenticación
+    require '../includes/funciones.php';
+    $auth = estadoAutenticado();
+    if(!$auth) {
+        header('Location: /login.php');
+    }
+
 
     // Importar DB
     require '../includes/config/database.php';
     $db = conectarDB();
 
     $query = "SELECT * FROM propiedades";
-
     $resultadoDB = mysqli_query($db, $query);
 
     // Mensaje condicional
@@ -23,7 +29,6 @@
 
             unlink('../imagenes/' . $propiedad['imagen']);
 
-
             //Eliminar Propiedad
             $query = "DELETE FROM propiedades WHERE id = ${id}";
             $resultado = mysqli_query($db, $query);
@@ -34,7 +39,6 @@
         var_dump($id);
     }
 
-    require '../includes/funciones.php';
     incluirTemplate('header');
 ?>
 

@@ -1,7 +1,9 @@
 @include tablet {
     .contenedor-anuncios {
         @include grid(3, 2rem);
+        
     }
+    
 }
 
 .anuncio {
@@ -10,14 +12,33 @@
     margin-bottom: 2rem;
     .contenido-anuncio {
         padding: 2rem;
+
+         @include tablet {
+             p {
+                min-width: auto;
+                max-width: 30ch;
+                overflow-wrap: break-word;
+             }
+         }
+
     }
 
     h3, p {
-        margin: 0;
+        margin: 0;    
+        overflow-wrap: break-word;
     }
 
     
 }
+
+.resumen-propiedad {
+    padding: 2rem;
+    p {
+        overflow-wrap: break-word;
+    }
+
+}
+
 
 
 .precio {

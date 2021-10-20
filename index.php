@@ -33,10 +33,10 @@
 
     <section class="seccion contenedor">
         <h2>Casas y Departamentos en Venta</h2>
-        <?php 
-            $limit = 3;
-            include 'includes/templates/anuncios.php'
-        ?>
+            <?php 
+                $limit = 3;
+                include 'includes/templates/anuncios.php'
+            ?>
 
         <div class="alinear-derecha">
             <a href="anuncios.php" class="boton-verde">
