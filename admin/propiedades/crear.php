@@ -91,31 +91,7 @@
 
             
             // INSERTAR EN BD
-            $query = "INSERT INTO propiedades ( 
-                titulo, 
-                precio, 
-                imagen,
-                descripcion, 
-                habitaciones, 
-                wc, 
-                estacionamiento, 
-                creado,
-                vendedor_ID 
-                ) 
-                
-                VALUES (
-                    '$titulo', 
-                    '$precio',
-                    '$nombreImagen', 
-                    '$descripcion', 
-                    '$habitaciones', 
-                    '$wc', 
-                    '$estacionamiento', 
-                    '$creado',
-                    '$vendedor_ID'
-                )";
     
-            $resultado = mysqli_query($db, $query);
             
             if($resultado) {
                 //Redireccionar
