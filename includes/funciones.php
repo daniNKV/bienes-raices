@@ -10,12 +10,17 @@ function incluirTemplate(string $nombre, bool $inicio = false) {
     
 }
 
-function estadoAutenticado() : bool {
+function estadoAutenticado() : void {
     session_start();
 
-    $auth = $_SESSION['login'];
-    if($auth) {
-        return true;
+    if(!$_SESSION['login']) {
+        header('Location: /');
     }
-    return false;
 }
+
+function debug($variable) : void {
+    echo "<pre>";
+    var_dump($variable);
+    echo "</pre>";
+    exit;
+}    

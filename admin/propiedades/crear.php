@@ -1,13 +1,14 @@
 <?php 
-    require '../../includes/funciones.php';
-    $auth = estadoAutenticado();
-    if(!$auth) {
-        header('Location: /login.php');
-    }
+    require '../../includes/app.php';
+
+    use App\Propiedad;
+    //$propiedad = new Propiedad;
+
+
+    estadoAutenticado();
 
 //BASE DE DATOS
 
-    require '../../includes/config/database.php';
     $db = conectarDB();
 
     $consulta = "SELECT * FROM vendedores";
