@@ -1,0 +1,16 @@
+{
+    "name": "dansen/bienes-raices",
+    "description": "POO Bienes Raices",
+    "authors": [
+        {
+            "name": "Dani",
+            "email": "nikiforovdaniel@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "./clases"
+        }
+    }
+}
