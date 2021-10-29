@@ -1,6 +1,7 @@
 <?php 
+
     // Autenticación
-    require '../includes/funciones.php';
+    require '../includes/app.php';
     $auth = estadoAutenticado();
     if(!$auth) {
         header('Location: /login.php');
@@ -8,7 +9,6 @@
 
 
     // Importar DB
-    require '../includes/config/database.php';
     $db = conectarDB();
 
     $query = "SELECT * FROM propiedades";
