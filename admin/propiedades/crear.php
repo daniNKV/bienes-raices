@@ -2,7 +2,6 @@
     require '../../includes/app.php';
 
     use App\Propiedad;
-    //$propiedad = new Propiedad;
 
 
     estadoAutenticado();
@@ -29,13 +28,12 @@
 
     // Ejecutar después de enviar el formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        /*
-        echo '<pre>';
-        var_dump($_FILES);
-        echo '</pre>'; 
+
+        $propiedad = new Propiedad($_POST);
+
+        $propiedad->guardar();
+        debug($propiedad);
         
-        exit;
-        */
         $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
         $precio = mysqli_real_escape_string($db, $_POST['precio']);
         $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
