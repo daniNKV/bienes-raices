@@ -15,7 +15,7 @@
 
 
     // Array con errores
-    $errores = [];
+    $errores = Propiedad::getErrores();
     
     $titulo = '';
     $precio = '';
@@ -31,54 +31,17 @@
 
         $propiedad = new Propiedad($_POST);
 
-        $propiedad->guardar();
-        debug($propiedad);
-        
-        $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
-        $precio = mysqli_real_escape_string($db, $_POST['precio']);
-        $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
-        $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']);
-        $wc = mysqli_real_escape_string($db, $_POST['wc']);
-        $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
-        $vendedor_ID = mysqli_real_escape_string($db, $_POST['vendedor_ID']);
-        $creado = date('Y/m/d');
+        $errores = $propiedad->validarFormulario();
 
-        // Asignar files en una variable
-        $imagen = $_FILES['imagen'];
-
-        // Validacion de formulario
-        if(!$titulo) {
-            $errores[] = "Debe tener un titulo";
-        }
-        if(!$precio) {
-            $errores[] = "Debe tener un precio";
-        }
-        if(strlen($descripcion) < 20) {
-            $errores[] = "Debe tener una descripcion de al menos 20 caracteres";
-        }
-        if(!$habitaciones) {
-            $errores[] = "Debe tener un numero de habitaciones";
-        }
-        if(!$wc) {
-            $errores[] = "Debe tener un numero de baños";
-        }
-        if(!$estacionamiento) {
-            $errores[] = "Debe tener un numero de lugares para estacionar";
-        }
-
-        // Validacion imagen
-        $escala = 10000 * 1000;
-        if(!$imagen['name']) {
-            $errores[] = "Debe tener una imagen";
-        }
-        if($imagen['size'] > $escala) {
-            $errores[] = "La imagen es muy pesada";
-        }
 
         // Revisar que no existan errores
-        if(empty($errores)) {
-            // SUBIR ARCHIVOS
+        if(empty($errores)) {     
+           
+            $propiedad->guardar();
             
+            // Asignar files en una variable
+            $imagen = $_FILES['imagen'];
+
             // Crear carpeta
             $carpetaImagenes = '../../imagenes/';
             if(!is_dir($carpetaImagenes)) {
@@ -209,3 +172,18 @@
 
     <?php incluirTemplate('footer'); ?>
 
+
+
+
+    <?php   
+    /*      
+        $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
+        $precio = mysqli_real_escape_string($db, $_POST['precio']);
+        $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
+        $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']);
+        $wc = mysqli_real_escape_string($db, $_POST['wc']);
+        $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
+        $vendedor_ID = mysqli_real_escape_string($db, $_POST['vendedor_ID']);
+        $creado = date('Y/m/d');
+        */
+        ?>

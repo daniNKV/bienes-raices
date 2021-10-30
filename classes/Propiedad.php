@@ -4,14 +4,23 @@ namespace App;
 
 
 class Propiedad {
+
     // BASE DE DATOS
     protected static $db;
     protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'estacionamiento', 'wc', 'creado', 'vendedor_ID'];
+
 
     // Definir conexión a BD
     public static function setDB($database) {
         self::$db = $database;
     }
+
+
+    // Gestion Errores
+    protected static $errores = [];
+
+
+    // Atributos
     public $id;
     public $titulo;
     public $precio;
@@ -76,6 +85,46 @@ class Propiedad {
         return $sanitizado;
 
     }
+
+    // Validación 
+    public static function getErrores() {
+        return self::$errores;
+    }
+
+    public function validarFormulario() {
+        // Validacion de formulario
+        if(!$this->titulo) {
+            self::$errores[] = "Debe tener un titulo";
+        }
+        if(!$this->precio) {
+            self::$errores[] = "Debe tener un precio";
+        }
+        if(strlen($this->descripcion) < 20) {
+            self::$errores[] = "Debe tener una descripcion de al menos 20 caracteres";
+        }
+        if(!$this->habitaciones) {
+            self::$errores[] = "Debe tener un numero de habitaciones";
+        }
+        if(!$this->wc) {
+            self::$errores[] = "Debe tener un numero de baños";
+        }
+        if(!$this->estacionamiento) {
+            self::$errores[] = "Debe tener un numero de lugares para estacionar";
+        }
+        /*
+        // Validacion imagen
+        $escala = 10000 * 1000;
+        if(!$this->imagen['name']) {
+            self::$errores[] = "Debe tener una imagen";
+        }
+        if($this->imagen['size'] > $escala) {
+            self::$errores[] = "La imagen es muy pesada";
+        }
+*/
+        return self::$errores;
+    }
+
+
 
 }
 
