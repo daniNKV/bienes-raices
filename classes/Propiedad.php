@@ -20,7 +20,6 @@ class Propiedad {
     protected static $errores = [];
 
 
-    // Atributos
     public $id;
     public $titulo;
     public $precio;
@@ -36,7 +35,7 @@ class Propiedad {
         $this->id = $args['id'] ?? '';
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
-        $this->imagen = $args['imagen'] ?? 'imagen.jpg';
+        $this->imagen = $args['imagen'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
         $this->habitaciones = $args['habitaciones'] ?? '';
         $this->estacionamiento = $args['estacionamiento'] ?? '';
@@ -49,8 +48,6 @@ class Propiedad {
     public function guardar() {
         // Sanitización
         $atributos = $this->sanitizarAtributos();
-
-
         // Inserción en BD
         $query = "INSERT INTO propiedades ( ";
         $query .= join(', ', array_keys($atributos));
@@ -59,6 +56,8 @@ class Propiedad {
         $query .= " ') ";
 
         $resultado = self::$db->query($query);
+        //debug(mysqli_error(self::$db));
+        return $resultado;
 
     }
 
@@ -66,7 +65,8 @@ class Propiedad {
     public function atributos() {
         $atributos = [];
         foreach(self::$columnasDB as $columna) {
-            if($columna === '$id') continue;
+            if($columna === 'id') continue;
+            
             $atributos[$columna] = $this->$columna;
         }
         return $atributos;
@@ -86,10 +86,11 @@ class Propiedad {
 
     }
 
-    // Validación 
+
     public static function getErrores() {
         return self::$errores;
     }
+
 
     public function validarFormulario() {
         // Validacion de formulario
@@ -111,19 +112,21 @@ class Propiedad {
         if(!$this->estacionamiento) {
             self::$errores[] = "Debe tener un numero de lugares para estacionar";
         }
-        /*
+        
         // Validacion imagen
-        $escala = 10000 * 1000;
-        if(!$this->imagen['name']) {
+        if(!$this->imagen) {
             self::$errores[] = "Debe tener una imagen";
         }
-        if($this->imagen['size'] > $escala) {
-            self::$errores[] = "La imagen es muy pesada";
-        }
-*/
+
         return self::$errores;
     }
 
+
+    public function setImagen($imagen) {
+        if($imagen) {
+            $this->imagen = $imagen;
+        }
+    }
 
 
 }

@@ -2,7 +2,7 @@
     require '../../includes/app.php';
 
     use App\Propiedad;
-
+    use Intervention\Image\ImageManagerStatic as Image;
 
     estadoAutenticado();
 
@@ -28,34 +28,35 @@
 
     // Ejecutar después de enviar el formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+        // Crear nueva Instancia
         $propiedad = new Propiedad($_POST);
 
+        // Generar nombre único
+        $nombreImagen = md5(uniqid(rand(), true)) . ".jpg" ;
+
+        // SETEAR IMAGEN //
+        if($_FILES['imagen']['tmp_name']) {
+            // Re-size
+            $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+            // Guardar Ref
+            $propiedad->setImagen($nombreImagen);
+        }
+
+        // Validar
         $errores = $propiedad->validarFormulario();
-
-
+        
         // Revisar que no existan errores
         if(empty($errores)) {     
-           
-            $propiedad->guardar();
-            
-            // Asignar files en una variable
-            $imagen = $_FILES['imagen'];
-
-            // Crear carpeta
-            $carpetaImagenes = '../../imagenes/';
-            if(!is_dir($carpetaImagenes)) {
-                mkdir($carpetaImagenes);
+            // Crear carpeta para las imagenes
+            if(!is_dir(CARPETA_IMAGENES)) {
+                mkdir(CARPETA_IMAGENES);
             }
-            // Generar nombre único
-            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg" ;
-            // Subir la imagen
-            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen );
 
-            
+            // Guardar archivos
+            $image->save(CARPETA_IMAGENES . $nombreImagen);
+
             // INSERTAR EN BD
-    
-            
+            $resultado = $propiedad->guardar();
             if($resultado) {
                 //Redireccionar
                 header('Location: /admin?resultado=200');
