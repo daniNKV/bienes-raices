@@ -1,10 +1,8 @@
 <?php 
     // Autenticación
     require '../../includes/app.php';
-    $auth = estadoAutenticado();
-    if(!$auth) {
-        header('Location: /login.php');
-    }
+
+    estadoAutenticado();
 
     // Información de la propiedad
     $id = $_GET['id']; 
