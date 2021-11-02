@@ -3,10 +3,11 @@
     // Autenticación
     require '../includes/app.php';
     $auth = estadoAutenticado();
-    if(!$auth) {
-        header('Location: /login.php');
-    }
 
+    use App\Propiedad;
+
+    // Método para obtener todas las propiedades
+    $propiedades = Propiedad::all();    
 
     // Importar DB
     $db = conectarDB();

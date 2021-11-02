@@ -20,16 +20,17 @@ class Propiedad {
     protected static $errores = [];
 
 
-    public $id;
-    public $titulo;
-    public $precio;
-    public $imagen;
-    public $descripcion;
-    public $habitaciones;
-    public $estacionamiento;
-    public $wc;
-    public $creado;
-    public $vendedor_ID;
+    public 
+        $id,
+        $titulo,
+        $precio,
+        $imagen,
+        $descripcion,
+        $habitaciones,
+        $estacionamiento,
+        $wc,
+        $creado,
+        $vendedor_ID;
 
     public function __construct($args = []) {
         $this->id = $args['id'] ?? '';
@@ -128,6 +129,44 @@ class Propiedad {
         }
     }
 
+    public static function all() {
+        $query = "SELECT * FROM propiedades";
+        
+        self::consultarSQL($query);
+        
+
+    }
+
+    public static function consultarSQL($query) {
+        // Consulta DB
+        $resultado = self::$db->query($query); 
+       
+        // Iterar
+        $array = [];
+        while($registro = $resultado->fetch_assoc()){
+            $array[] = self::crearObjeto($registro);
+        }
+
+        // Flush Memoria
+        $resultado->free();
+
+        // Resultados
+        return $array;
+    }
+
+
+    protected static function crearObjeto($array) {
+        $objeto = new self;
+
+        foreach($array as $key => $value) {
+            if(property_exists($objeto, $key)) {
+                $objeto->$key = $value;
+
+            };
+        }
+
+        return $objeto;
+    }
 
 }
 
