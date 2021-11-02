@@ -20,17 +20,16 @@ class Propiedad {
     protected static $errores = [];
 
 
-    public 
-        $id,
-        $titulo,
-        $precio,
-        $imagen,
-        $descripcion,
-        $habitaciones,
-        $estacionamiento,
-        $wc,
-        $creado,
-        $vendedor_ID;
+    public $id;
+    public $titulo;
+    public $precio;
+    public $imagen;
+    public $descripcion;
+    public $habitaciones;
+    public $estacionamiento;
+    public $wc;
+    public $creado;
+    public $vendedor_ID;
 
     public function __construct($args = []) {
         $this->id = $args['id'] ?? '';
@@ -44,7 +43,6 @@ class Propiedad {
         $this->creado = date('Y/m/d');
         $this->vendedor_ID = $args['vendedor_ID'] ?? '';
     }
-
 
     public function guardar() {
         // Sanitización
@@ -62,7 +60,6 @@ class Propiedad {
 
     }
 
-
     public function atributos() {
         $atributos = [];
         foreach(self::$columnasDB as $columna) {
@@ -72,7 +69,6 @@ class Propiedad {
         }
         return $atributos;
     }
-
 
     public function sanitizarAtributos() {
         
@@ -87,11 +83,9 @@ class Propiedad {
 
     }
 
-
     public static function getErrores() {
         return self::$errores;
     }
-
 
     public function validarFormulario() {
         // Validacion de formulario
@@ -122,22 +116,22 @@ class Propiedad {
         return self::$errores;
     }
 
-
     public function setImagen($imagen) {
         if($imagen) {
             $this->imagen = $imagen;
         }
     }
 
-    public static function all() {
+    public static function all() : array {
         $query = "SELECT * FROM propiedades";
         
-        self::consultarSQL($query);
+        $resultado = self::consultarSQL($query);
         
+        return $resultado;
 
     }
 
-    public static function consultarSQL($query) {
+    public static function consultarSQL($query) : array {
         // Consulta DB
         $resultado = self::$db->query($query); 
        
@@ -146,7 +140,7 @@ class Propiedad {
         while($registro = $resultado->fetch_assoc()){
             $array[] = self::crearObjeto($registro);
         }
-
+        
         // Flush Memoria
         $resultado->free();
 
@@ -154,17 +148,14 @@ class Propiedad {
         return $array;
     }
 
-
-    protected static function crearObjeto($array) {
+    protected static function crearObjeto($array) : object {
         $objeto = new self;
 
         foreach($array as $key => $value) {
             if(property_exists($objeto, $key)) {
                 $objeto->$key = $value;
-
             };
         }
-
         return $objeto;
     }
 

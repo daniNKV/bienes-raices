@@ -14,7 +14,7 @@ function estadoAutenticado() {
     session_start();
     
     if(!$_SESSION['login']) {
-        header('Location: /');
+        header('Location: /login.php');
     }else {
         return true;
     }
