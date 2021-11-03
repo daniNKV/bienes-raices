@@ -7,15 +7,15 @@
                 <input 
                     type="text" 
                     id="titulo" 
-                    name="titulo" 
+                    name="propiedad[titulo]" 
                     placeholder="Titulo de la Propiedad" 
                     value="<?php echo s($propiedad->titulo); ?>">
                 
-                <label for="precio">:</label>
+                <label for="precio">Precio</label>
                 <input 
                     type="number" 
                     id="precio" 
-                    name="precio"
+                    name="propiedad[precio]"
                     placeholder="Precio de la Propiedad" 
                     value="<?php echo s($propiedad->precio); ?>">
                 
@@ -23,7 +23,7 @@
                 <input 
                     type="file" 
                     id="imagen" 
-                    name="imagen" 
+                    name="propiedad[imagen]" 
                     accept="image/jpeg, image/png">
 
                     <?php if($propiedad->imagen): ?> 
@@ -33,7 +33,7 @@
                 <label for="descripcion" >Descripción:</label>
                 <textarea 
                     id="descripcion" 
-                    name="descripcion" 
+                    name="propiedad[descripcion]" 
                     value="<?php echo s($propiedad->descripcion); ?>">
                 </textarea>
 
@@ -46,7 +46,7 @@
                 <input 
                     type="number" 
                     id="habitaciones" 
-                    name="habitaciones" 
+                    name="propiedad[habitaciones]" 
                     placeholder="Ej: 3" 
                     min="1" 
                     max="9" 
@@ -56,7 +56,7 @@
                 <input 
                     type="number" 
                     id="wc" 
-                    name="wc" 
+                    name="propiedad[wc]" 
                     placeholder="Ej: 3" 
                     min="1" 
                     max="9" 
@@ -66,7 +66,7 @@
                 <input 
                     type="number" 
                     id="estacionamiento" 
-                    name="estacionamiento" 
+                    name="propiedad[estacionamiento]" 
                     placeholder="Ej: 3" 
                     min="1" 
                     max="99" 
@@ -75,7 +75,9 @@
 
             <fieldset>
                 <legend>Vendedor/es</legend>
-
+                        <select name="propiedad[vendedor_ID]" id="vendedor_ID" >
+                            <option value="1">roxanne</option>
+                        </select>
 
                 </select>
             </fieldset>

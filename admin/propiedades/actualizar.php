@@ -78,6 +78,9 @@
         if(!$estacionamiento) {
             $errores[] = "Debe tener un numero de lugares para estacionar";
         }
+        // Asignar atributos
+        $args = $_POST['propiedad'];
+        $propiedad->sincronizar($args);
 
         // Validacion imagen
         $escala = 10000 * 1000;
