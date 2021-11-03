@@ -23,29 +23,30 @@
     // Ejecutar después de enviar el formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Crear nueva Instancia
-        $propiedad = new Propiedad($_POST);
+        $propiedad = new Propiedad($_POST['propiedad']);
 
         // Generar nombre único
         $nombreImagen = md5(uniqid(rand(), true)) . ".jpg" ;
 
         // SETEAR IMAGEN //
-        if($_FILES['imagen']['tmp_name']) {
+        if($_FILES['propiedad']['tmp_name']['imagen']) {
             // Re-size
-            $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+            $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
             // Guardar Ref
             $propiedad->setImagen($nombreImagen);
         }
 
+
         // Validar
         $errores = $propiedad->validarFormulario();
         
+
         // Revisar que no existan errores
         if(empty($errores)) {     
             // Crear carpeta para las imagenes
             if(!is_dir(CARPETA_IMAGENES)) {
                 mkdir(CARPETA_IMAGENES);
             }
-
             // Guardar archivos
             $image->save(CARPETA_IMAGENES . $nombreImagen);
 

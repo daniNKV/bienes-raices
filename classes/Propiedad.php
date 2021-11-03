@@ -117,6 +117,14 @@ class Propiedad {
     }
 
     public function setImagen($imagen) {
+        // Eliminar imagen anterior
+        if($this->id) {
+            $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
+            if($existeArchivo) {
+                unlink(CARPETA_IMAGENES . $this->imagen);
+            }
+        // Subir nueva
+        };
         if($imagen) {
             $this->imagen = $imagen;
         }
