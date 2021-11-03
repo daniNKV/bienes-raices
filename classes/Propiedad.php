@@ -44,7 +44,19 @@ class Propiedad {
         $this->vendedor_ID = $args['vendedor_ID'] ?? '';
     }
 
-    public function guardar() {
+    public function guardar(){
+        if(isset($this->id)) {
+            // Actualizar
+            $resultado = $this->actualizar();
+        }else {
+            // Crear
+            $resultado = $this->crear();
+        }
+        return $resultado;
+    }  
+
+
+    public function crear() {
         // Sanitización
         $atributos = $this->sanitizarAtributos();
         // Inserción en BD
@@ -55,11 +67,29 @@ class Propiedad {
         $query .= " ') ";
 
         $resultado = self::$db->query($query);
+        return $resultado;
+    }
+
+    public function actualizar() {
+        $atributos = $this->sanitizarAtributos();
+
+        $valores = [];
+        foreach($atributos as $key => $value) {
+            $valores[] = "{$key}='{$value}'";
+        }
+
+        $query = "UPDATE propiedades SET ";
+        $query .= join(', ', $valores);
+        $query .= "WHERE id = '" . self::$db->escape_string($this->id) . "' ";
+        $query .= "LIMIT 1";
+
+        
+        $resultado = self::$db->query($query);
+
         //debug(mysqli_error(self::$db));
         return $resultado;
 
     }
-
     public function atributos() {
         $atributos = [];
         foreach(self::$columnasDB as $columna) {
@@ -118,7 +148,7 @@ class Propiedad {
 
     public function setImagen($imagen) {
         // Eliminar imagen anterior
-        if($this->id) {
+        if(isset($this->id)) {
             $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
             if($existeArchivo) {
                 unlink(CARPETA_IMAGENES . $this->imagen);

@@ -15,6 +15,7 @@
     if(!$id) {
         header('Location: /admin');
     }
+
     //BASE DE DATOS
     //Conexión 
     $db = conectarDB();
@@ -31,6 +32,8 @@
     
 
 
+
+
     // Ejecutar después de enviar el formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Asignar atributos
@@ -40,7 +43,6 @@
         // Validacion 
         $errores = $propiedad->validarFormulario();
 
-        
         // Subir Archivos
         // Generar nombre único
         $nombreImagen = md5(uniqid(rand(), true)) . ".jpg" ;
@@ -50,34 +52,15 @@
             $propiedad->setImagen($nombreImagen);
         }
 
-
         // Revisar que no existan errores
         if(empty($errores)) {
-        
-            exit;
-            // INSERTAR EN BD
-            $query = "UPDATE propiedades SET
-                titulo = '${titulo}', 
-                precio = '${precio}', 
-                imagen = '${nombreImagen}',
-                descripcion = '${descripcion}', 
-                habitaciones = ${habitaciones}, 
-                wc = ${wc}, 
-                estacionamiento = ${estacionamiento}, 
-                vendedor_ID = ${vendedor_ID} 
-                WHERE id = ${id}
-                ";
 
-            $resultado = mysqli_query($db, $query)or die(mysqli_error($db));
-            
+            $resultado = $propiedad->guardar();
+
             if($resultado) {
-                //Redireccionar
                 header('Location: /admin?resultado=210');
             }else {
                 echo 'fallo';            
-                
-
-
             }
         }
         

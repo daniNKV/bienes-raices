@@ -24,7 +24,7 @@
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Crear nueva Instancia
         $propiedad = new Propiedad($_POST['propiedad']);
-
+        
         // Generar nombre único
         $nombreImagen = md5(uniqid(rand(), true)) . ".jpg" ;
 
