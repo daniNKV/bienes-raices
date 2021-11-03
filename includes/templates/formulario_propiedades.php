@@ -26,6 +26,10 @@
                     name="imagen" 
                     accept="image/jpeg, image/png">
 
+                    <?php if($propiedad->imagen): ?> 
+                            <img src="/imagenes/<?php echo $propiedad->imagen; ?>" class="imagen-small">
+                    <?php endif ?>
+
                 <label for="descripcion" >Descripción:</label>
                 <textarea 
                     id="descripcion" 

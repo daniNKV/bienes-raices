@@ -122,6 +122,7 @@ class Propiedad {
         }
     }
 
+    // Listar todas las propiedades
     public static function all() : array {
         $query = "SELECT * FROM propiedades";
         
@@ -130,6 +131,15 @@ class Propiedad {
         return $resultado;
 
     }
+
+    // Buscar una propiedad
+    public static function find($id) {
+        $query = "SELECT * FROM propiedades WHERE id = ${id}";
+        $resultado = self::consultarSQL($query);
+        
+        return array_shift($resultado);
+    }
+
 
     public static function consultarSQL($query) : array {
         // Consulta DB
