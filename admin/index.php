@@ -5,6 +5,7 @@
     estadoAutenticado();
 
     use App\Propiedad;
+    use App\Vendedor;
 
     // Método para obtener todas las propiedades
     $propiedades = Propiedad::all();    
