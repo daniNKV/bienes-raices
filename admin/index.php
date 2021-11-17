@@ -13,24 +13,13 @@
     // Mensaje condicional
     $resultado = $_GET['resultado'] ?? null;
 
-    // Eliminar Elementos
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id'];
         $id = filter_var($id, FILTER_VALIDATE_INT );
-
         if($id) {
-            $query = "SELECT imagen FROM propiedades WHERE id = ${id}";
-            $resultado = mysqli_query($db, $query);
-            $propiedad = mysqli_fetch_assoc($resultado);
+            $propiedad = Propiedad::find($id);
+            $propiedad->eliminar();
 
-            unlink('../imagenes/' . $propiedad['imagen']);
-
-            //Eliminar Propiedad
-            $query = "DELETE FROM propiedades WHERE id = ${id}";
-            $resultado = mysqli_query($db, $query);
-            if($resultado) {
-                header('Location: /admin?resultado=220');
-            }
         }
     }
 

@@ -9,16 +9,13 @@ class Propiedad {
     protected static $db;
     protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'estacionamiento', 'wc', 'creado', 'vendedor_ID'];
 
-
     // Definir conexión a BD
     public static function setDB($database) {
         self::$db = $database;
     }
 
-
     // Gestion Errores
     protected static $errores = [];
-
 
     public $id;
     public $titulo;
@@ -31,8 +28,10 @@ class Propiedad {
     public $creado;
     public $vendedor_ID;
 
+
+
     public function __construct($args = []) {
-        $this->id = $args['id'] ?? '';
+        $this->id = $args['id'] ?? null;
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->imagen = $args['imagen'] ?? '';
@@ -44,17 +43,18 @@ class Propiedad {
         $this->vendedor_ID = $args['vendedor_ID'] ?? '';
     }
 
+
+    
     public function guardar(){
-        if(isset($this->id)) {
+        if(!is_null($this->id)) {
             // Actualizar
-            $resultado = $this->actualizar();
+            $this->actualizar();
         }else {
             // Crear
-            $resultado = $this->crear();
+            $this->crear();
+    
         }
-        return $resultado;
     }  
-
 
     public function crear() {
         // Sanitización
@@ -67,8 +67,14 @@ class Propiedad {
         $query .= " ') ";
 
         $resultado = self::$db->query($query);
-        return $resultado;
+        if($resultado) {
+            //Redireccionar
+            header('Location: /admin?resultado=200');
+        }else {
+            echo "fallo";
+        }
     }
+
 
     public function actualizar() {
         $atributos = $this->sanitizarAtributos();
@@ -85,11 +91,23 @@ class Propiedad {
 
         
         $resultado = self::$db->query($query);
-
-        //debug(mysqli_error(self::$db));
-        return $resultado;
-
+        
+        if($resultado) {
+            //Redireccionar
+            header('Location: /admin?resultado=200');
+        }
     }
+
+    public function eliminar() {
+        $query = "DELETE FROM propiedades WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1"; 
+        $resultado = self::$db->query($query);
+
+        if($resultado) {
+            $this->borrarImagen();
+            header('Location: /admin?resultado=220');
+        }
+    }
+
     public function atributos() {
         $atributos = [];
         foreach(self::$columnasDB as $columna) {
@@ -111,10 +129,6 @@ class Propiedad {
 
         return $sanitizado;
 
-    }
-
-    public static function getErrores() {
-        return self::$errores;
     }
 
     public function validarFormulario() {
@@ -148,20 +162,36 @@ class Propiedad {
 
     public function setImagen($imagen) {
         // Eliminar imagen anterior
-        if(isset($this->id)) {
-            $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
-            if($existeArchivo) {
-                unlink(CARPETA_IMAGENES . $this->imagen);
-            }
-        // Subir nueva
+        if(!is_null($this->id)) {
+            $this->borrarImagen();
         };
+        // Subir nueva
         if($imagen) {
             $this->imagen = $imagen;
         }
     }
 
-    // Listar todas las propiedades
-    public static function all() : array {
+    public function borrarImagen(){
+        $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
+        if($existeArchivo) {
+            unlink(CARPETA_IMAGENES . $this->imagen);
+        }    }
+    
+    public function sincronizar( $args = []){    // Sincronizar objeto en memoria con los cambios hechos
+
+        foreach($args as $key => $value) {
+            if(property_exists($this, $key) && !is_null($value)) {
+                $this->$key = $value;
+            }
+        }
+    }
+
+    public static function getErrores() {
+        return self::$errores;
+    }
+
+    public static function all() : array {  // Listar todas las propiedades
+
         $query = "SELECT * FROM propiedades";
         
         $resultado = self::consultarSQL($query);
@@ -170,14 +200,13 @@ class Propiedad {
 
     }
 
-    // Buscar una propiedad
-    public static function find($id) {
+    public static function find($id) {  // Buscar una propiedad
+
         $query = "SELECT * FROM propiedades WHERE id = ${id}";
         $resultado = self::consultarSQL($query);
         
         return array_shift($resultado);
     }
-
 
     public static function consultarSQL($query) : array {
         // Consulta DB
@@ -207,19 +236,9 @@ class Propiedad {
         return $objeto;
     }
 
-    // Sincronizar objeto en memoria con los cambios hechos
-    public function sincronizar( $args = []){
-        foreach($args as $key => $value) {
-            if(property_exists($this, $key) && !is_null($value)) {
-                $this->$key = $value;
-            }
-        }
-    }
+
 
 }
-
-
-
 
 
 

@@ -51,13 +51,8 @@
             $image->save(CARPETA_IMAGENES . $nombreImagen);
 
             // INSERTAR EN BD
-            $resultado = $propiedad->guardar();
-            if($resultado) {
-                //Redireccionar
-                header('Location: /admin?resultado=200');
-            }else {
-                echo 'fallo';
-            }
+            $propiedad->guardar();
+
         }
         
 

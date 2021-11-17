@@ -54,17 +54,9 @@
 
         // Revisar que no existan errores
         if(empty($errores)) {
-
-            $resultado = $propiedad->guardar();
-
-            if($resultado) {
-                header('Location: /admin?resultado=210');
-            }else {
-                echo 'fallo';            
-            }
+            $propiedad->guardar();
         }
         
-
   }
 
     
