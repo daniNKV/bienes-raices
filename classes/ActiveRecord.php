@@ -8,6 +8,7 @@ class ActiveRecord {
     // BASE DE DATOS
     protected static $db;
     protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'estacionamiento', 'wc', 'creado', 'vendedor_ID'];
+    protected static $tabla = '';
 
     // Definir conexión a BD
     public static function setDB($database) {
@@ -60,7 +61,7 @@ class ActiveRecord {
         // Sanitización
         $atributos = $this->sanitizarAtributos();
         // Inserción en BD
-        $query = "INSERT INTO propiedades ( ";
+        $query = "INSERT INTO " . static::$tabla . " ( ";
         $query .= join(', ', array_keys($atributos));
         $query .= " ) VALUES (' ";
         $query .= join("', '", array_values($atributos));
@@ -84,7 +85,7 @@ class ActiveRecord {
             $valores[] = "{$key}='{$value}'";
         }
 
-        $query = "UPDATE propiedades SET ";
+        $query = "UPDATE " . static::$tabla . " SET ";
         $query .= join(', ', $valores);
         $query .= "WHERE id = '" . self::$db->escape_string($this->id) . "' ";
         $query .= "LIMIT 1";
@@ -99,7 +100,8 @@ class ActiveRecord {
     }
 
     public function eliminar() {
-        $query = "DELETE FROM propiedades WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1"; 
+        //Eliminar registro
+        $query = "DELETE FROM " . static::$tabla . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1"; 
         $resultado = self::$db->query($query);
 
         if($resultado) {
@@ -192,7 +194,7 @@ class ActiveRecord {
 
     public static function all() : array {  // Listar todas las propiedades
 
-        $query = "SELECT * FROM propiedades";
+        $query = "SELECT * FROM " . static::$tabla;
         
         $resultado = self::consultarSQL($query);
         
@@ -202,7 +204,7 @@ class ActiveRecord {
 
     public static function find($id) {  // Buscar una propiedad
 
-        $query = "SELECT * FROM propiedades WHERE id = ${id}";
+        $query = "SELECT * FROM " . static::$tabla . " WHERE id = ${id}";
         $resultado = self::consultarSQL($query);
         
         return array_shift($resultado);
