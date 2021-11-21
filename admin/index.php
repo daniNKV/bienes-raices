@@ -11,7 +11,6 @@
     $propiedades = Propiedad::all();    
     $vendedores = Vendedor::all();
 
-    debug($vendedores);
 
     // Mensaje condicional
     $resultado = $_GET['resultado'] ?? null;
