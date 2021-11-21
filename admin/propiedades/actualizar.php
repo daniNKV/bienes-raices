@@ -1,6 +1,7 @@
 <?php 
 
     use App\Propiedad;
+    use App\Vendedor;
     use Intervention\Image\ImageManagerStatic as Image;
 
     // Autenticación
@@ -17,16 +18,12 @@
     }
 
     //BASE DE DATOS
-    //Conexión 
-    $db = conectarDB();
-    
+
     // Obtener propiedad
     $propiedad = Propiedad::find($id);
 
     // Obtener Vendedores
-    $consultaVendedores = "SELECT * FROM vendedores";
-    $resultadoVendedores = mysqli_query($db, $consultaVendedores);
-
+    $vendedores = Vendedor::all();
     // Array con errores
     $errores = Propiedad::getErrores();
     
@@ -54,7 +51,11 @@
 
         // Revisar que no existan errores
         if(empty($errores)) {
+            if($_FILES['propiedad']['tmp_name']['imagen']) {
+                $image->save(CARPETA_IMAGENES . $nombreImagen);
+            }
             $propiedad->guardar();
+
         }
         
   }

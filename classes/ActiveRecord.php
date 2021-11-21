@@ -68,7 +68,7 @@ class ActiveRecord {
         
         if($resultado) {
             //Redireccionar
-            header('Location: /admin?resultado=200');
+            header('Location: /admin?resultado=210');
         }
     }
 
@@ -85,7 +85,7 @@ class ActiveRecord {
 
     public function atributos() {
         $atributos = [];
-        foreach(self::$columnasDB as $columna) {
+        foreach(static::$columnasDB as $columna) {
             if($columna === 'id') continue;
             
             $atributos[$columna] = $this->$columna;
@@ -166,7 +166,7 @@ class ActiveRecord {
         // Iterar
         $array = [];
         while($registro = $resultado->fetch_assoc()){
-            $array[] = self::crearObjeto($registro);
+            $array[] = static::crearObjeto($registro);
         }
         
         // Flush Memoria
