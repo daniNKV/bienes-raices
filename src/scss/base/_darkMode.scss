@@ -39,11 +39,12 @@
         }
     }
 
-
-}
-
-.propiedades {
-    td {
-        color: $blanco;
+    
+    .propiedades,
+    .vendedores {
+        td {
+            color: $blanco;
+        }
     }
+
 }

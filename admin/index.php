@@ -16,6 +16,7 @@
     $resultado = $_GET['resultado'] ?? null;
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        debug($_POST);
         $id = $_POST['id'];
         $id = filter_var($id, FILTER_VALIDATE_INT );
         if($id) {
@@ -81,6 +82,44 @@
 
             </tbody>
         </table>
+
+        <h2>Vendedores</h2>
+        
+        <table class="vendedores">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody> <!-- Resultados de DB -->
+  
+                <?php foreach($vendedores as $vendedor):  ?>
+
+                    <tr>
+                    <td><?php echo $vendedor->id; ?></td>
+                    <td><?php echo $vendedor->nombre . " " . $vendedor->apellido; ?></td>
+                    <td>$<?php echo $vendedor->telefono; ?></td>
+                    
+                    <td>
+                        <form method="POST" class="w100">
+                            <input type="hidden" name="id" value="<?php echo $vendedor->id; ?>">
+
+                            <input type="submit" class="boton-rojo-block" value="Eliminar">
+                        </form>
+                        <a href="admin/vendedores/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
+                    </td>
+                </tr>
+                                    
+                <?php endforeach ?>
+
+            </tbody>
+        </table>
+
+
     </main>
 
     <?php 
