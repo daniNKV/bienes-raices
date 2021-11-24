@@ -16,13 +16,23 @@
     $resultado = $_GET['resultado'] ?? null;
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        debug($_POST);
         $id = $_POST['id'];
         $id = filter_var($id, FILTER_VALIDATE_INT );
+        
         if($id) {
-            $propiedad = Propiedad::find($id);
-            $propiedad->eliminar();
 
+            $tipo = $_POST['type'];
+
+            if(validarTipoContenido($tipo)) {
+                if($tipo === 'vendedor') {
+                    $vendedor = Vendedor::find($id);
+                    $vendedor->eliminar();
+
+                }else if ($tipo === 'propiedad') {
+                    $propiedad = Propiedad::find($id);
+                    $propiedad->eliminar();
+                }
+            }
         }
     }
 
@@ -71,10 +81,11 @@
                     <td>
                         <form method="POST" class="w100">
                             <input type="hidden" name="id" value="<?php echo $propiedad->id; ?>">
+                            <input type="hidden" name="type" value="propiedad">
 
                             <input type="submit" class="boton-rojo-block" value="Eliminar">
                         </form>
-                        <a href="admin/propiedades/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
+                        <a href="propiedades/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>
                                     
@@ -107,10 +118,11 @@
                     <td>
                         <form method="POST" class="w100">
                             <input type="hidden" name="id" value="<?php echo $vendedor->id; ?>">
+                            <input type="hidden" name="type" value="vendedor">
 
                             <input type="submit" class="boton-rojo-block" value="Eliminar">
                         </form>
-                        <a href="admin/vendedores/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
+                        <a href="vendedores/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>
                                     
