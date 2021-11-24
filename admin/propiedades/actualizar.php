@@ -18,10 +18,8 @@
     }
 
     //BASE DE DATOS
-
     // Obtener propiedad
     $propiedad = Propiedad::find($id);
-
     // Obtener Vendedores
     $vendedores = Vendedor::all();
     // Array con errores
@@ -38,7 +36,7 @@
         $propiedad->sincronizar($args);
 
         // Validacion 
-        $errores = $propiedad->validarFormulario();
+        $errores = $propiedad->validar();
 
         // Subir Archivos
         // Generar nombre único

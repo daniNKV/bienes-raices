@@ -44,15 +44,15 @@
         <h1>Administrador de Bienes Raices</h1>
     
     <?php if(intval($resultado) == 200): ?>
-        <p class="alerta exito">Anuncio creado correctamente</p>
+        <p class="alerta exito">Creado correctamente</p>
     <?php endif ?>
 
     <?php if(intval($resultado) == 210): ?>
-        <p class="alerta exito">Anuncio actualizado correctamente</p>
+        <p class="alerta exito">Actualizado correctamente</p>
     <?php endif ?>
 
     <?php if(intval($resultado) == 220): ?>
-        <p class="alerta exito">Anuncio eliminado correctamente</p>
+        <p class="alerta exito">Eliminado correctamente</p>
     <?php endif ?>
 
         <a href="/admin/propiedades/crear.php" class="boton-verde">Nueva Propiedad</a>

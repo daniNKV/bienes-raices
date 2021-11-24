@@ -106,7 +106,7 @@ class ActiveRecord {
 
     }
 
-    public function validarFormulario() {
+    public function validar() {
         static::$errores = [];
         return static::$errores;
     }

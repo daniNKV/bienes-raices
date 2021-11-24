@@ -57,5 +57,7 @@ class Propiedad extends ActiveRecord {
         if(!$this->imagen) {
             self::$errores[] = "Debe tener una imagen";
         }
+
+        return self::$errores;
     }
 }

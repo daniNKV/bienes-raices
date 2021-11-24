@@ -24,4 +24,32 @@ class Vendedor extends ActiveRecord {
         $this->email = $args['email'] ?? ''; 
     }
 
+    public function validar() {
+        // Validacion de formulario
+        if(!$this->nombre) {
+            self::$errores[] = "El nombre es obligatorio";
+        }
+        if(!$this->apellido) {
+            self::$errores[] = "El apellido es obligatorio";
+        }
+        if(!$this->telefono) {
+            self::$errores[] = "El telefono es obligatorio";
+        }
+        if(!$this->email) {
+            self::$errores[] = "El email es obligatorio";
+        }
+        if(!preg_match('/[0-9]{10}/', $this->telefono)) {
+            self::$errores[] = "Formato de teléfono inválido";
+
+        }
+        if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            self::$errores[] = "Formato de email inválido";
+
+        }
+
+        return self::$errores;
+
+    }
+
 }
+

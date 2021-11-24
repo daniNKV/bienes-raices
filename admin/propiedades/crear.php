@@ -36,7 +36,7 @@
 
 
         // Validar
-        $errores = $propiedad->validarFormulario();
+        $errores = $propiedad->validar();
         
 
         // Revisar que no existan errores
