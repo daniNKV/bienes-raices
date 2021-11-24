@@ -56,6 +56,7 @@
     <?php endif ?>
 
         <a href="/admin/propiedades/crear.php" class="boton-verde">Nueva Propiedad</a>
+        <a href="/admin/vendedores/crear.php" class="boton-amarillo">Nuevo(a) Vendedor/a</a>
 
         <table class="propiedades">
             <thead>
@@ -101,7 +102,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
+                    <th>Imagen</th>
                     <th>Telefono</th>
+                    <th>Email</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -113,7 +116,9 @@
                     <tr>
                     <td><?php echo $vendedor->id; ?></td>
                     <td><?php echo $vendedor->nombre . " " . $vendedor->apellido; ?></td>
-                    <td>$<?php echo $vendedor->telefono; ?></td>
+                    <td><img src="imagenes/<?php echo $vendedor->imagen; ?>" alt="" class="imagen-tabla"></td>
+                    <td><?php echo $vendedor->telefono; ?></td>
+                    <td><?php echo $vendedor->email; ?></td>
                     
                     <td>
                         <form method="POST" class="w100">
@@ -122,7 +127,7 @@
 
                             <input type="submit" class="boton-rojo-block" value="Eliminar">
                         </form>
-                        <a href="vendedores/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
+                        <a href="vendedores/actualizar.php?id=<?php echo $vendedor->id; ?>" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>
                                     
