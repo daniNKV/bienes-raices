@@ -47,7 +47,7 @@
             name="vendedor[imagen]" 
             accept="image/jpeg, image/png">
         <?php  if($vendedor->imagen): ?> 
-                <img src="/vendedores/imagenes/<?php  echo $vendedor->imagen; ?>" class="imagen-small">
+                <img src="../../imagenes/<?php  echo $vendedor->imagen; ?>" class="imagen-small">
         <?php  endif ?> 
     
 </fieldset>
