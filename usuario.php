@@ -1,16 +1,15 @@
 <?php 
     
     // Importar Conexion
-    require 'includes/config/database.php';
+    require 'includes/app.php';
     $db = conectarDB();
     
     // Crear Email y password
-    $password = '123456';
+    $password = 'admin';
     $email = 'email@email.com';
 
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-    var_dump($passwordHash);
 
     // Query para el usuario
     $query = "INSERT INTO usuarios (email, password) VALUES ('${email}', '${passwordHash}');";

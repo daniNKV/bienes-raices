@@ -1,6 +1,6 @@
 <?php 
 
-    require 'includes/config/database.php';
+    require 'includes/app.php';
     $db = conectarDB();
 
     // Autenticación de Usuarios
@@ -33,8 +33,9 @@
                     session_start();
                     $_SESSION['usuario'] = $usuario['email'];
                     $_SESSION['login'] = true;
-                    
-                    header('Location: /admin');
+
+                    header('Location: /admin/index.php');
+
                 }else {
                     $errores[] = "El password es incorrecto";
                 }
@@ -45,11 +46,7 @@
         }
     }
 
-    
 
-
-
-    require 'includes/funciones.php';
     incluirTemplate('header');
     
 
