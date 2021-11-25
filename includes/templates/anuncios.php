@@ -2,8 +2,13 @@
     
     use App\Propiedad;
 
-    $propiedades = Propiedad::all();
+    if($_SERVER['SCRIPT_NAME'] === '/anuncios.php') {
+        $propiedades = Propiedad::all();
 
+    } else {
+        $propiedades = Propiedad::getSome(3);
+
+    }
 
 
 ?>

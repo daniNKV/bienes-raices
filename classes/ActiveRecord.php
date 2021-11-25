@@ -151,6 +151,15 @@ class ActiveRecord {
 
     }
 
+    public static function getSome($cantidad) {
+        $query = "SELECT * FROM " . static::$tabla . "LIMIT" . $cantidad ;
+        debug($query);
+        $resultado = self::consultarSQL($query);
+        
+        return $resultado;
+
+    } 
+
     public static function find($id) {  // Buscar una propiedad
 
         $query = "SELECT * FROM " . static::$tabla . " WHERE id = ${id}";
