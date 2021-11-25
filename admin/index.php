@@ -42,18 +42,13 @@
 
     <main class="contenedor seccion">
         <h1>Administrador de Bienes Raices</h1>
-    
-    <?php if(intval($resultado) == 200): ?>
-        <p class="alerta exito">Creado correctamente</p>
-    <?php endif ?>
 
-    <?php if(intval($resultado) == 210): ?>
-        <p class="alerta exito">Actualizado correctamente</p>
-    <?php endif ?>
-
-    <?php if(intval($resultado) == 220): ?>
-        <p class="alerta exito">Eliminado correctamente</p>
-    <?php endif ?>
+        <?php 
+            $mensaje = mostrarNotificacion( intval($resultado));
+        
+            if($mensaje) { ?> 
+                <p class="alerta exito"> <?php echo s($mensaje); ?> </p>
+            <?php } ?>
 
         <a href="/admin/propiedades/crear.php" class="boton-verde">Nueva Propiedad</a>
         <a href="/admin/vendedores/crear.php" class="boton-amarillo">Nuevo(a) Vendedor/a</a>
